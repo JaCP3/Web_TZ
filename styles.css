@@ -312,3 +312,11 @@ table th, table td {
         transform: translateX(-50%) translateY(-10px);
     }
 }
+
+
+.logo {
+    position: absolute; /* Posiciona el elemento relativo a la ventana */
+    top: 3%;         /* Ajusta la distancia desde la parte superior */
+    left: 2%;       /* Ajusta la distancia desde la parte derecha */
+    height: auto;      /* Mantiene la proporción del logo */
+}
