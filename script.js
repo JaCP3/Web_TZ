@@ -14,16 +14,15 @@ function cerrarDetalles() {
     document.querySelector('.detalles-producto').remove();
 }
 
-// Selección de los elementos
-const workWithUsCheckbox = document.getElementById('workWithUs');
-const fileUploadContainer = document.getElementById('fileUploadContainer');
 
-// Escuchar el cambio en el estado del checkbox
-workWithUsCheckbox.addEventListener('change', () => {
-    // Mostrar el contenedor de subir archivo si el checkbox está marcado
-    if (workWithUsCheckbox.checked) {
+function toggleFileUpload() {
+    const checkbox = document.getElementById('workWithUs');
+    const fileUploadContainer = document.getElementById('fileUploadContainer');
+    
+    // Mostrar u ocultar el contenedor del archivo dependiendo del estado del checkbox
+    if (checkbox.checked) {
         fileUploadContainer.style.display = 'block';
     } else {
         fileUploadContainer.style.display = 'none';
     }
-});
+}

@@ -189,6 +189,16 @@ footer .redes-sociales a img {
     align-items: flex-start;
     margin-top: 20px;
     margin-left: 20%;
+
+
+  }
+  .map-card2 {
+    background-color: #eeeee4;
+    color: #fff;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
   }
   
   .map-container {
@@ -202,4 +212,103 @@ footer .redes-sociales a img {
 margin-right:35%;
 }
   
- 
+ /* Resumen del carrito */
+#resumen-carrito {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #FAF3E8;
+    border-radius: 10px;
+}
+
+.resumen-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+table th, table td {
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid #d2b48c;
+}
+
+.total-container p {
+    font-size: 1.2rem;
+    text-align: right;
+    margin: 0.5rem 0;
+}
+
+.total-container p strong {
+    color: #5c4033;
+}
+.compra-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#btn-comprar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btn-comprar:hover {
+    background-color: #45a049;
+}
+
+#btn-comprar:active {
+    background-color: #3e8e41;
+}
+
+
+/* Estilo general para los mensajes */
+.mensaje-alerta {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+/* Colores específicos para los tipos de mensaje */
+.mensaje-alerta.exito {
+    background-color: #4CAF50; /* Verde para éxito */
+}
+
+.mensaje-alerta.error {
+    background-color: #F44336; /* Rojo para error */
+}
+
+/* Animación para desvanecer */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    10%, 90% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}

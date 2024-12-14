@@ -21,71 +21,175 @@
         <section id="productos">
             <h2>Nuestros Productos</h2>
             <div class="grid">
-                <div class="producto" onclick="verDetalles(this)">
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Peto Infantil</h3>
                     <img src="./2.jpeg" alt="Producto 1">
                     <p>$15.00</p>
                 </div>
-                <div class="producto" onclick="verDetalles(this)">
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Ranita Manga Larga</h3>
                     <img src="./3.jpeg" alt="Producto 2">
                     <p>$20.00</p>
                 </div>
-                <div class="producto" onclick="verDetalles(this)">
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Pelele Corto</h3>
                     <img src="./4.jpeg" alt="Producto 2">
                     <p>$20.00</p>
                 </div>
-                <div class="producto" onclick="verDetalles(this)">
-                    <h3>Conjuto Infantil</h3>
+                <div class="producto" onclick="agregarAlCarrito(this)">
+                    <h3>Conjunto Infantil</h3>
                     <img src="./5.jpeg" alt="Producto 2">
                     <p>$20.00</p>
                 </div>
-                <div class="producto" onclick="verDetalles(this)">
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Pantalón Infantil</h3>
                     <img src="./12.jpeg" alt="Producto 2">
                     <p>$20.00</p>
                 </div>
-                <div class="producto" onclick="verDetalles(this)">
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Mono Infantil</h3>
                     <img src="./1.jpeg" width="200%" alt="Producto 2">
                     <p>$20.00</p>
                 </div>
-                <div class="producto" onclick="verDetalles(this)">
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Peto Infantil</h3>
                     <img src="./6.jpeg" alt="Producto 2">
                     <p>$20.00</p>
                 </div>
-                <div class="producto" onclick="verDetalles(this)">
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Pantalón Infantil</h3>
                     <img src="./7.jpeg" alt="Producto 2">
                     <p>$20.00</p>
-                </div><div class="producto" onclick="verDetalles(this)">
+                </div>
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Pantalón Infantil</h3>
                     <img src="./8.jpeg" alt="Producto 2">
                     <p>$20.00</p>
-                </div><div class="producto" onclick="verDetalles(this)">
+                </div>
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Pantalón Infantil</h3>
                     <img src="./9.jpeg" alt="Producto 2">
                     <p>$20.00</p>
-                </div><div class="producto" onclick="verDetalles(this)">
+                </div>
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Pantalón Infantil</h3>
                     <img src="./10.jpeg" alt="Producto 2">
                     <p>$20.00</p>
-                </div><div class="producto" onclick="verDetalles(this)">
+                </div>
+                <div class="producto" onclick="agregarAlCarrito(this)">
                     <h3>Pantalón Infantil</h3>
                     <img src="./11.jpeg" alt="Producto 2">
                     <p>$20.00</p>
                 </div>  
-                <!-- Agrega más productos aquí -->
+
             </div>
+            <div class="compra-container">
+                <button id="btn-comprar" onclick="realizarCompra()">Comprar</button>
+            </div>
+            
         </section>
     </main>
 
-    <footer>
-        <p>Visítanos en nuestras redes sociales.</p>
-    </footer>
+    <section id="resumen-carrito">
+        <h2>Resumen de Compra</h2>
+        <div class="resumen-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="resumen-body">
+                    <!-- Filas dinámicas generadas por JavaScript -->
+                </tbody>
+            </table>
+            <div class="total-container">
+                <p><strong>Total (sin IVA):</strong> $<span id="total-sin-iva">0.00</span></p>
+                <p><strong>IVA (21%):</strong> $<span id="iva">0.00</span></p>
+                <p><strong>Total (con IVA):</strong> $<span id="total-con-iva">0.00</span></p>
+            </div>
+        </div>
+    </section>
 
-    <script src="script.js"></script>
+    <script>
+       
+       const carrito = {};
+
+function agregarAlCarrito(producto) {
+    const nombre = producto.querySelector('h3').textContent;
+    const precioTexto = producto.querySelector('p').textContent;
+    const precio = parseFloat(precioTexto.replace('$', ''));
+    
+    // Crear una clave única basada en el nombre del producto y un timestamp para evitar colisiones
+    const claveProducto = `${nombre}-${Date.now()}`;
+
+    if (carrito[claveProducto]) {
+        carrito[claveProducto].cantidad += 1;
+        carrito[claveProducto].subtotal += precio;
+    } else {
+        carrito[claveProducto] = { nombre, precio, cantidad: 1, subtotal: precio };
+    }
+
+    actualizarResumen();
+}
+
+function actualizarResumen() {
+    const resumenBody = document.getElementById('resumen-body');
+    resumenBody.innerHTML = '';
+
+    let totalSinIVA = 0;
+
+    for (const [clave, datos] of Object.entries(carrito)) {
+        totalSinIVA += datos.subtotal;
+
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${datos.nombre}</td>
+            <td>$${datos.precio.toFixed(2)}</td>
+            <td>${datos.cantidad}</td>
+            <td>$${datos.subtotal.toFixed(2)}</td>
+        `;
+        resumenBody.appendChild(fila);
+    }
+
+    const iva = totalSinIVA * 0.21;
+    const totalConIVA = totalSinIVA + iva;
+
+    document.getElementById('total-sin-iva').textContent = totalSinIVA.toFixed(2);
+    document.getElementById('iva').textContent = iva.toFixed(2);
+    document.getElementById('total-con-iva').textContent = totalConIVA.toFixed(2);
+}
+
+function mostrarMensaje(tipo, mensaje) {
+    const mensajeDiv = document.createElement('div');
+    mensajeDiv.className = `mensaje-alerta ${tipo}`; // Clase CSS según el tipo (éxito o error)
+    mensajeDiv.textContent = mensaje;
+
+    document.body.appendChild(mensajeDiv);
+
+    setTimeout(() => {
+        mensajeDiv.remove();
+    }, 3000);
+}
+
+function realizarCompra() {
+    if (Object.keys(carrito).length === 0) {
+        mostrarMensaje('error', 'El carrito está vacío. Por favor, agrega productos antes de realizar la compra.');
+    } else {
+        mostrarMensaje('exito', '¡Gracias por tu compra! Procesaremos tu pedido en breve.');
+
+        // Vaciar el carrito
+        for (const key in carrito) {
+            delete carrito[key];
+        }
+        actualizarResumen();
+    }
+}
+
+
+    </script>
 </body>
 </html>
